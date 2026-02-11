@@ -55,7 +55,7 @@
     </ul>
 
     <h2>6. Host Permissions</h2>
-    <p>The Extension's content script uses the <code>&lt;all_urls&gt;</code> match pattern. This is required because the internal QC Dashboard is deployed across multiple internal environments and subdomains. The content script performs a guard check on page load (<code>document.querySelector('ol &gt; li.border')</code>) and immediately exits on any page that is not the QC Dashboard, ensuring no code executes on unrelated websites.</p>
+    <p>The Extension's content script is restricted to a single host: <code>https://qc-internal-prod.hyperverge.co/*</code>. This is HyperVerge's internal QC Dashboard. The extension does not run on any other website. Additionally, the content script performs a guard check on page load (<code>document.querySelector('ol &gt; li.border')</code>) and immediately exits if the expected dashboard structure is not found.</p>
 
     <h2>7. Remote Code</h2>
     <p>The Extension does <strong>not</strong> use any remote code. All JavaScript and CSS is bundled within the extension package. There are no external <code>&lt;script&gt;</code> tags, no dynamically loaded modules, and no use of <code>eval()</code> or equivalent runtime code evaluation.</p>
