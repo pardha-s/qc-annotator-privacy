@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — QC Dashboard Annotator Chrome Extension</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1e293b; background: #f8fafc; padding: 40px 20px; }
+    .container { max-width: 760px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 48px 40px; }
+    h1 { font-size: 28px; margin-bottom: 8px; color: #0f172a; }
+    .subtitle { font-size: 14px; color: #64748b; margin-bottom: 32px; }
+    h2 { font-size: 20px; margin-top: 32px; margin-bottom: 12px; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; }
+    p { margin-bottom: 14px; font-size: 15px; }
+    ul { margin: 8px 0 14px 24px; font-size: 15px; }
+    li { margin-bottom: 6px; }
+    .highlight { background: #eff6ff; border-left: 4px solid #2563eb; padding: 12px 16px; border-radius: 4px; margin: 16px 0; font-size: 14px; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 13px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p class="subtitle">QC Dashboard Annotator — Chrome Extension (v0.2) · Last updated: February 11, 2026</p>
+
+    <h2>1. Overview</h2>
+    <p>QC Dashboard Annotator ("the Extension") is an internal, unlisted Chrome extension built by HyperVerge for use exclusively by its internal quality-control teams. It adds an annotation overlay to the internal QC Dashboard web application, allowing team members to review and annotate KYC/OCR API responses directly within the dashboard interface.</p>
+
+    <h2>2. Data We Collect</h2>
+    <p>The Extension collects and stores the following data <strong>locally on the user's device only</strong>, using Chrome's local storage API:</p>
+    <ul>
+      <li><strong>Annotator profile:</strong> A self-entered display name and an auto-generated anonymous annotator ID (e.g., "A-X7K2F9").</li>
+      <li><strong>Annotation data:</strong> Field-level correctness judgments, ground-truth corrections, and 422-response validity assessments tied to request IDs already visible on the QC Dashboard.</li>
+      <li><strong>Session metrics:</strong> Timer state (elapsed seconds), sample counts, and annotation pace — used to track productivity within a session.</li>
+      <li><strong>User preference:</strong> A custom download-directory subfolder name.</li>
+    </ul>
+    <div class="highlight">All of the above data is stored exclusively in <code>chrome.storage.local</code> on the user's own device. No data is transmitted to any external server or third-party service, except the Slack webhook described below.</div>
+
+    <h2>3. Data Shared Externally</h2>
+    <p>The Extension sends a pace-alert message to a private HyperVerge Slack channel via a Slack Incoming Webhook when an annotator's average pace exceeds the configured threshold (120 seconds per sample). This alert contains:</p>
+    <ul>
+      <li>The annotator's self-entered name and auto-generated ID.</li>
+      <li>Average annotation pace, sample count, and elapsed time.</li>
+    </ul>
+    <p>No KYC data, personal identification information, document images, or API response content is ever included in these alerts or transmitted externally by the Extension.</p>
+
+    <h2>4. Data Retention and Deletion</h2>
+    <p>All annotation data is stored temporarily and is automatically deleted from local storage when the user exports annotations (via the "Export JSON" button). Users can also manually clear all stored data at any time using the "Clear All Annotations" button in the Extension popup. No data persists on any remote server.</p>
+
+    <h2>5. Permissions and Their Purpose</h2>
+    <ul>
+      <li><strong>storage:</strong> Used to persist annotations, annotator profile, timer state, and user preferences locally on the device between sessions.</li>
+      <li><strong>activeTab:</strong> Used to inject the annotation toolbar and overlay UI into the currently active QC Dashboard tab when the user clicks the extension icon.</li>
+      <li><strong>downloads:</strong> Used to save exported annotation JSON files and to download document images from the QC Dashboard to the user's local machine for quality-control review.</li>
+    </ul>
+
+    <h2>6. Host Permissions</h2>
+    <p>The Extension's content script uses the <code>&lt;all_urls&gt;</code> match pattern. This is required because the internal QC Dashboard is deployed across multiple internal environments and subdomains. The content script performs a guard check on page load (<code>document.querySelector('ol &gt; li.border')</code>) and immediately exits on any page that is not the QC Dashboard, ensuring no code executes on unrelated websites.</p>
+
+    <h2>7. Remote Code</h2>
+    <p>The Extension does <strong>not</strong> use any remote code. All JavaScript and CSS is bundled within the extension package. There are no external <code>&lt;script&gt;</code> tags, no dynamically loaded modules, and no use of <code>eval()</code> or equivalent runtime code evaluation.</p>
+
+    <h2>8. Third-Party Services</h2>
+    <p>The only external service contacted by the Extension is the Slack Incoming Webhook API (<code>hooks.slack.com</code>), used solely for internal pace-monitoring alerts as described in Section 3. No other third-party services, analytics, or tracking tools are used.</p>
+
+    <h2>9. User Rights</h2>
+    <p>Users can view all stored data via the Extension popup at any time. Users can delete all stored data instantly using the "Clear All Annotations" button. Since this is an internal tool distributed only to HyperVerge employees, users may also contact the internal development team for any data-related requests.</p>
+
+    <h2>10. Children's Privacy</h2>
+    <p>This Extension is an internal workplace tool and is not intended for use by children under 13. It is distributed exclusively to HyperVerge employees.</p>
+
+    <h2>11. Changes to This Policy</h2>
+    <p>This privacy policy may be updated as the Extension evolves. Any changes will be reflected on this page with an updated date.</p>
+
+    <h2>12. Contact</h2>
+    <p>For questions about this privacy policy or the Extension's data practices, contact the HyperVerge QC tools team at: <strong>pardha.s@hyperverge.co</strong></p>
+
+    <div class="footer">
+      <p>© 2026 HyperVerge. This extension is an internal tool and is not publicly distributed.</p>
+    </div>
+  </div>
+</body>
+</html>
